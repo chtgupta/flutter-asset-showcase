@@ -1,0 +1,15 @@
+name: asset_showcase
+description: A dart package to help you visually list and analyze your Flutter project assets
+version: 1.0.1
+repository: https://github.com/chtgupta/flutter-asset-showcase
+
+environment:
+  sdk: ^3.1.4
+
+executable:
+  main: bin/asset_showcase.dart
+
+dependencies:
+  args: ^2.5.0
+
+
