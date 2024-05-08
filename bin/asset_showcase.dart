@@ -52,7 +52,7 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
       : (totalSize / 1024).toStringAsFixed(2) + " MB";
 
 // Write the search bar and text below it
-  htmlStream.write('<div style="display: flex; align-items: center;">');
+  htmlStream.write('<div style="display: flex; align-items: center; position: sticky; top: 0; z-index: 1; background-color: white;">');
   htmlStream.write(
       '<div id="search-bar" style="display: flex; align-items: center; flex-grow: 1;">');
   htmlStream.write(

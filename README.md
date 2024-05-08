@@ -11,13 +11,16 @@ Asset Showcase is a Dart package that generates an HTML showcase for assets pres
 - Provides a responsive and interactive user interface.
 - Easy to customize and integrate into your projects.
 
+## Screenshots
+![Screenshot 2024-05-08 at 1 36 13 PM](https://github.com/chtgupta/flutter-asset-showcase/assets/22120812/7e1503d0-0a0d-41d1-9216-25483cedcf2f)
+
 ## Installation
 
 To use Asset Showcase in your Dart project, add it as a dev dependency in your `pubspec.yaml` file:
 
 ```yaml
 dev_dependencies:
-  asset_showcase: ^1.0.1
+  asset_showcase: ^1.0.2
 ```
 
 Then, run `dart pub get` or `flutter pub get` to install the package.
@@ -48,6 +51,7 @@ dart run asset_showcase --assets=path/to/assets --output=path/to/output.html
 ## Acknowledgments
 
 Certain parts of the code present in this repository are written using generative AI. I wish to share the prompts that served as a journey to creating this package.
+
 https://chat.openai.com/share/699a3978-6933-475d-a1d3-5c1a72f99e60
 
 ## Contributing
