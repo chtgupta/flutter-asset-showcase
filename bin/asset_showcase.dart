@@ -52,7 +52,8 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
       : (totalSize / 1024).toStringAsFixed(2) + " MB";
 
 // Write the search bar and text below it
-  htmlStream.write('<div style="display: flex; align-items: center; position: sticky; top: 0; z-index: 1; background-color: white;">');
+  htmlStream.write(
+      '<div style="display: flex; align-items: center; position: sticky; top: 0; z-index: 1; background-color: white;">');
   htmlStream.write(
       '<div id="search-bar" style="display: flex; align-items: center; flex-grow: 1;">');
   htmlStream.write(
@@ -103,6 +104,10 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
         fileName.endsWith('.webp')) {
       htmlStream
           .write('<img class="image" src="$assetPath" alt="$fileName">\n');
+    } else if (fileName.endsWith('.mp3') || fileName.endsWith('.wav')) {
+      // For audio files, include an audio element
+      htmlStream.write(
+          '<audio controls class="audio" style="width: 200px;"><source src="$assetPath" type="audio/mpeg">Your browser does not support the audio tag.</audio>');
     } else {
       htmlStream.write('<div class="file-indicator">File</div>\n');
     }
@@ -209,6 +214,14 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
   htmlStream.write('  });');
 
   htmlStream
+      .write('  const audioElements = document.querySelectorAll("audio");');
+  htmlStream.write('  audioElements.forEach(audio => {');
+  htmlStream.write('    audio.addEventListener("play", () => {');
+  htmlStream.write('      pauseOtherAudios(audio);');
+  htmlStream.write('    });');
+  htmlStream.write('  });');
+
+  htmlStream
       .write('  const fileInfos = document.querySelectorAll(".file-info");');
   htmlStream.write('  fileInfos.forEach(fileInfo => {');
   htmlStream.write('    fileInfo.addEventListener("click", () => {');
@@ -216,6 +229,16 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
       '      const filePath = fileInfo.parentElement.getAttribute("data-file-path");');
   htmlStream.write('      copyFilePath(filePath);');
   htmlStream.write('    });');
+  htmlStream.write('  });');
+  htmlStream.write('}');
+
+  htmlStream.write('function pauseOtherAudios(currentAudio) {');
+  htmlStream
+      .write('  const audioElements = document.querySelectorAll("audio");');
+  htmlStream.write('  audioElements.forEach(audio => {');
+  htmlStream.write('    if (audio !== currentAudio) {');
+  htmlStream.write('      audio.pause();');
+  htmlStream.write('    }');
   htmlStream.write('  });');
   htmlStream.write('}');
 
