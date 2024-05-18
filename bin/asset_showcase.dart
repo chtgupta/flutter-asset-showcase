@@ -170,15 +170,15 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
       '    const fileInfoB = parseFloat(b.querySelector("#hidden-size").textContent);');
   htmlStream.write('    if (sortOption === "name_asc") {');
   htmlStream.write(
-      '      const fileNameA = a.querySelector(".file-info").textContent.split(" ")[0];');
+      '      const fileNameA = a.querySelector("#hidden-name").textContent;');
   htmlStream.write(
-      '      const fileNameB = b.querySelector(".file-info").textContent.split(" ")[0];');
+      '      const fileNameB = b.querySelector("#hidden-name").textContent;');
   htmlStream.write('      return fileNameA.localeCompare(fileNameB);');
   htmlStream.write('    } else if (sortOption === "name_desc") {');
   htmlStream.write(
-      '      const fileNameA = a.querySelector(".file-info").textContent.split(" ")[0];');
+      '      const fileNameA = a.querySelector("#hidden-name").textContent;');
   htmlStream.write(
-      '      const fileNameB = b.querySelector(".file-info").textContent.split(" ")[0];');
+      '      const fileNameB = b.querySelector("#hidden-name").textContent;');
   htmlStream.write('      return fileNameB.localeCompare(fileNameA);');
   htmlStream.write('    } else if (sortOption === "size_asc") {');
   htmlStream.write('      return fileInfoA - fileInfoB;');
@@ -203,15 +203,6 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
   htmlStream.write('    showToast("Asset path copied");');
   htmlStream.write('  }');
 
-  htmlStream.write('  const images = document.querySelectorAll(".image");');
-  htmlStream.write('  images.forEach(image => {');
-  htmlStream.write('    image.addEventListener("click", () => {');
-  htmlStream.write(
-      '      const filePath = image.parentElement.getAttribute("data-file-path");');
-  htmlStream.write('      copyFilePath(filePath);');
-  htmlStream.write('    });');
-  htmlStream.write('  });');
-
   htmlStream
       .write('  const audioElements = document.querySelectorAll("audio");');
   htmlStream.write('  audioElements.forEach(audio => {');
@@ -221,11 +212,11 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
   htmlStream.write('  });');
 
   htmlStream
-      .write('  const fileInfos = document.querySelectorAll(".file-info");');
+      .write('  const fileInfos = document.querySelectorAll(".grid-item");');
   htmlStream.write('  fileInfos.forEach(fileInfo => {');
   htmlStream.write('    fileInfo.addEventListener("click", () => {');
   htmlStream.write(
-      '      const filePath = fileInfo.parentElement.getAttribute("data-file-path");');
+      '      const filePath = fileInfo.getAttribute("data-file-path");');
   htmlStream.write('      copyFilePath(filePath);');
   htmlStream.write('    });');
   htmlStream.write('  });');
