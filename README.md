@@ -6,8 +6,8 @@ Asset Showcase is a Dart package that generates an HTML showcase for assets pres
 
 - Generates an HTML showcase for assets in a specified directory.
 - Supports sorting assets by name or size.
+- Supports filtering assets based on file extensions.
 - Includes a search bar for quickly finding assets.
-- Displays file type indicators for different asset types.
 - Provides a responsive and interactive user interface.
 - Easy to customize and integrate into your projects.
 
@@ -20,7 +20,7 @@ To use Asset Showcase in your Dart project, add it as a dev dependency in your `
 
 ```yaml
 dev_dependencies:
-  asset_showcase: ^1.0.2
+  asset_showcase: ^1.0.3
 ```
 
 Then, run `dart pub get` or `flutter pub get` to install the package.
