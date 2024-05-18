@@ -36,7 +36,7 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
   htmlStream.write(
       '<!DOCTYPE html>\n<html>\n<head>\n<title>Asset Showcase</title>\n');
   htmlStream.write(
-      '<style>html {font-family: monospace;} .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; padding: 10px; } .grid-item { display: flex; flex-direction: column; align-items: center; padding: 10px; } .image { max-width: 100%; max-height: 100%; width: 80px; height: 80px; margin-bottom: 10px; cursor: pointer; transition: transform 0.2s ease-in-out; } .image:hover { transform: scale(1.1); } .file-info { font-size: 12px; margin-top: 10px; } .hidden { display: none; } #search-bar { display: flex; align-items: center; position: sticky; top: 0; background-color: white; z-index: 1; padding: 20px; } #search-input { padding: 8px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; flex-grow: 1; margin-right: 10px; } .drop { padding: 8px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; margin-left: 10px; } .file-indicator {width: 80px;height: 80px;background-color: lightgray;display: flex;justify-content: center;align-items: center;font-size: 14px; margin: 5px; cursor: pointer;} .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: 300px; } .toast { background-color: black; color: white; padding: 10px; margin-bottom: 10px; word-wrap: break-word; }</style>\n');
+      '<style>html {font-family: monospace;} .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; padding: 10px; } .grid-item { display: flex; flex-direction: column; align-items: center; padding: 10px; } .image { max-width: 100%; max-height: 100%; width: 80px; height: 80px; margin-bottom: 10px; cursor: pointer; transition: transform 0.2s ease-in-out; } .audio { max-width: 100%; max-height: 100%; width: 80px; height: 80px; margin-bottom: 10px; cursor: pointer; } .image:hover { transform: scale(1.1); } .file-info { font-size: 12px; margin-top: 10px; } .hidden { display: none; } #search-bar { display: flex; align-items: center; position: sticky; top: 0; background-color: white; z-index: 1; padding: 20px; } #search-input { padding: 8px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; flex-grow: 1; margin-right: 10px; } .drop { padding: 8px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; margin-left: 10px; } .file-indicator {width: 80px;height: 80px;background-color: lightgray;display: flex;justify-content: center;align-items: center;font-size: 14px; margin: 5px; cursor: pointer;} .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: 300px; } .toast { background-color: black; color: white; padding: 10px; margin-bottom: 10px; word-wrap: break-word; }</style>\n');
 
   htmlStream.write('</head>\n<body>\n');
   htmlStream.write('<div class="toast-container" id="toastContainer"></div>');
@@ -52,7 +52,8 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
       : (totalSize / 1024).toStringAsFixed(2) + " MB";
 
 // Write the search bar and text below it
-  htmlStream.write('<div style="display: flex; align-items: center; position: sticky; top: 0; z-index: 1; background-color: white;">');
+  htmlStream.write(
+      '<div style="display: flex; align-items: center; position: sticky; top: 0; z-index: 1; background-color: white;">');
   htmlStream.write(
       '<div id="search-bar" style="display: flex; align-items: center; flex-grow: 1;">');
   htmlStream.write(
@@ -103,6 +104,9 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
         fileName.endsWith('.webp')) {
       htmlStream
           .write('<img class="image" src="$assetPath" alt="$fileName">\n');
+    } else if (fileName.endsWith('.mp3') || fileName.endsWith('.wav')) {
+      htmlStream.write(
+          '<audio controls class="audio" style="width: 100%;"><source src="$assetPath" type="audio/mpeg">Your browser does not support the audio tag.</audio>\n');
     } else {
       htmlStream.write('<div class="file-indicator">File</div>\n');
     }
@@ -209,6 +213,14 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
   htmlStream.write('  });');
 
   htmlStream
+      .write('  const audioElements = document.querySelectorAll("audio");');
+  htmlStream.write('  audioElements.forEach(audio => {');
+  htmlStream.write('    audio.addEventListener("play", () => {');
+  htmlStream.write('      pauseOtherAudios(audio);');
+  htmlStream.write('    });');
+  htmlStream.write('  });');
+
+  htmlStream
       .write('  const fileInfos = document.querySelectorAll(".file-info");');
   htmlStream.write('  fileInfos.forEach(fileInfo => {');
   htmlStream.write('    fileInfo.addEventListener("click", () => {');
@@ -216,6 +228,16 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
       '      const filePath = fileInfo.parentElement.getAttribute("data-file-path");');
   htmlStream.write('      copyFilePath(filePath);');
   htmlStream.write('    });');
+  htmlStream.write('  });');
+  htmlStream.write('}');
+
+  htmlStream.write('function pauseOtherAudios(currentAudio) {');
+  htmlStream
+      .write('  const audioElements = document.querySelectorAll("audio");');
+  htmlStream.write('  audioElements.forEach(audio => {');
+  htmlStream.write('    if (audio !== currentAudio) {');
+  htmlStream.write('      audio.pause();');
+  htmlStream.write('    }');
   htmlStream.write('  });');
   htmlStream.write('}');
 
