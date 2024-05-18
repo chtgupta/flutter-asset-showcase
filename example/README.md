@@ -4,7 +4,7 @@ To use Asset Showcase in your Dart project, add it as a dev dependency in your `
 
 ```yaml
 dev_dependencies:
-  asset_showcase: ^1.0.3
+  asset_showcase: ^1.0.4
 ```
 
 Then, run `dart pub get` or `flutter pub get` to install the package.

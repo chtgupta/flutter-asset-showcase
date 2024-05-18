@@ -215,8 +215,8 @@ void generateHtmlForAssets(String assetsDir, String outputFilePath) {
       .write('  const fileInfos = document.querySelectorAll(".grid-item");');
   htmlStream.write('  fileInfos.forEach(fileInfo => {');
   htmlStream.write('    fileInfo.addEventListener("click", () => {');
-  htmlStream.write(
-      '      const filePath = fileInfo.getAttribute("data-file-path");');
+  htmlStream
+      .write('      const filePath = fileInfo.getAttribute("data-file-path");');
   htmlStream.write('      copyFilePath(filePath);');
   htmlStream.write('    });');
   htmlStream.write('  });');

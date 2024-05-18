@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Formatted code according to Dart conventions
+
 ## 1.0.3
 
 - Added support for audio files (.mp3 and .wav)
